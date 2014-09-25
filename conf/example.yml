@@ -1,0 +1,24 @@
+devel:
+    databases:
+        default:
+            host: 'HOST'
+            user: 'USERNAME'
+            pass: 'PASSWORD'
+            db:   'DATABASE'
+
+test:
+    migration_dir: 't/migrations'
+    databases:
+        default:
+            host: 'HOST'
+            user: 'USERNAME'
+            pass: 'PASSWORD'
+            db:   'DATABASE'
+
+prod:
+    databases:
+        default:
+            host: 'HOST'
+            user: 'USERNAME'
+            pass: 'PASSWORD'
+            db:   'DATABASE'

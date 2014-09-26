@@ -246,7 +246,9 @@ sub shell {
     my $self = shift;
 
     my $db = $self->config('databases')->{$self->{db}};
-    exec("mysql -h$db->{host} -u$db->{user} $db->{db} -p$db->{pass}");
+    my $cmd = "mysql -h$db->{host} -u$db->{user} $db->{db} -p$db->{pass}";
+    $cmd .= " --port $db->{port}" if $db->{port};
+    exec($cmd);
 }
 ################################################################################
 sub dump_schema {
@@ -341,7 +343,9 @@ sub dbh {
 
     my $dbh = $self->{dbh};
     unless ($dbh) {
-        $dbh = DBI->connect( "dbi:mysql:host=$db->{host};database=$db->{db}",
+        my $dsn = "dbi:mysql:host=$db->{host};database=$db->{db}";
+        $dsn .= ";port=$db->{port}" if $db->{port};
+        $dbh = DBI->connect($dsn,
             $db->{user}, $db->{pass}, { RaiseError => 1, PrintError => 0 } );
         $self->{dbh} = $dbh;
     }
